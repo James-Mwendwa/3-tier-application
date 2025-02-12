@@ -1,0 +1,82 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Environment files
+.env
+
+# Editor files
+.vscode/
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+*.suo
+*.user
+*.sln
+*.vspscc
+*.scc
+*.ncb
+*.aps
+*.sdf
+
+# Test files
+*.test.js
+*.spec.js
+
+# Build files
+build/
+dist/
+
+# IDE-specific files
+.idea/
+.DS_Store
+
+# Database files
+db/
+
+# Temporary files
+*.log 
+*.tmp
+*.pid
+*.lock
+
+# Editor backup files
+*.swp
+*.bak

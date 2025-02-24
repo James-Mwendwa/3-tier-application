@@ -1,66 +1,32 @@
-require("dotenv").config();
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const sqlite3 = require("sqlite3").verbose();
+require("dotenv").config();
 
 const app = express();
-const port = 3001;
-
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json());
 
-const dbPath = process.env.DATABASE_URL;
+const mongoDbUrl = process.env.MONGODB_URL;
 
-// Create a connection to the SQLite database
-const db = new sqlite3.Database("./db/customers.db", (err) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log("Connected to the database.");
-  }
+// Connect to MongoDB
+mongoose.connect(mongoDbUrl, {});
+
+// Define a model
+const User = mongoose.model("User", new mongoose.Schema({ name: String }));
+
+// Routes
+app.get("/", (req, res) => res.send("Backend is running"));
+
+app.post("/users", async (req, res) => {
+  const user = await User.create(req.body);
+  res.json(user);
 });
 
-// Create a table (if it doesn't exist)
-db.run(`
-  CREATE TABLE IF NOT EXISTS customers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT
-  )
-`);
-
-// API endpoint to add a customer
-app.post("/api/customers", (req, res) => {
-  const { name, email } = req.body;
-
-  // Validate input (basic example)
-  if (!name || !email) {
-    return res.status(400).json({ error: "Name and email are required" });
-  }
-
-  db.run(
-    "INSERT INTO customers (name, email) VALUES (?, ?)",
-    [name, email],
-    (err) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.status(201).json({ message: "Customer added successfully" });
-    }
-  );
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+  res.json(users);
 });
 
-// API endpoint to get all customers
-app.get("/api/customers", (req, res) => {
-  db.all("SELECT * FROM customers", (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(rows);
-  });
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+// Start server
+app.listen(5000, () => console.log("Server running on port 5000"));

@@ -1,5 +1,5 @@
 # build dependencies
-FROM node:22-alpine AS build
+FROM node:slim AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN npm install --only=production
 COPY . .
 
 # build the app
-FROM node:22-alpine
+FROM node:slim
 
 WORKDIR /app
 

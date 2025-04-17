@@ -1,4 +1,4 @@
-FROM node:22-alpine AS build
+FROM node:slim AS build
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY . .
 RUN npm run build
 
 # stage 2
-FROM node:22-alpine
+FROM node:slim
 
 WORKDIR /app
 
@@ -21,4 +21,5 @@ EXPOSE 3000
 
 CMD ["npm", "run", "start"]
 
-
+##non root user
+##nginx server

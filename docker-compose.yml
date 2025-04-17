@@ -11,6 +11,11 @@ services:
       - backend
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   backend:
     build: ./backend
@@ -22,6 +27,11 @@ services:
       - database
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   database:
     image: mongo:6
@@ -36,6 +46,11 @@ services:
       - mongo-data:/data/db
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   app-network:

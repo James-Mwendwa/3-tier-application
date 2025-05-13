@@ -31,7 +31,7 @@ jobs:
 
       - name: Push backend Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/three-tier-app-backend:latest
+
           docker push ${{ secrets.DOCKER_USERNAME }}/three-tier-app-backend:${{ env.IMAGE_TAG }}
 
   build-and-push-frontend:

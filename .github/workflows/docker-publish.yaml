@@ -60,5 +60,5 @@ jobs:
 
       - name: Push frontend Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/three-tier-app-web:latest
+
           docker push ${{ secrets.DOCKER_USERNAME }}/three-tier-app-web:${{ env.IMAGE_TAG }}
